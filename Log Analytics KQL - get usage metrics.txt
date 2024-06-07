@@ -1,5 +1,10 @@
 PowerBIDatasetsWorkspace
-| where TimeGenerated > ago(30d) and OperationName in ('QueryBegin',"QueryEnd")
+| where TimeGenerated > ago(30d) and OperationName in ("QueryEnd")
 | extend ReportId = ApplicationContext["Sources"][0]["ReportId"], VisualId = ApplicationContext["Sources"][0]["VisualId"]
 | where ReportId <> ""
-| project format_datetime(TimeGenerated, 'yyyy-MM-dd'),OperationName,OperationDetailName,ExecutingUser, PowerBIWorkspaceName, ArtifactName, ReportId, VisualId, CpuTimeMs, DurationMs
+| project format_datetime(TimeGenerated, 'dd/MM/yyyy HH:mm'), Date = format_datetime(TimeGenerated, 'yyyy-MM-dd'), Time = format_datetime(TimeGenerated, 'HH:mm'),  ExecutingUser, PowerBIWorkspaceName, ArtifactName, ReportId, VisualId, CpuTimeMs, DurationMs
+
+
+
+
+
